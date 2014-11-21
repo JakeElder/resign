@@ -1,0 +1,19 @@
+{
+  "devDependencies": {
+    "backbone": "^1.1.2",
+    "browserify": "^6.3.2",
+    "gulp": "^3.8.8",
+    "gulp-browserify": "^0.5.0",
+    "gulp-plumber": "^0.6.5",
+    "gulp-ruby-sass": "^0.7.1",
+    "gulp-sourcemaps": "^1.2.8",
+    "gulp-symlink": "^2.0.1",
+    "gulp-util": "^3.0.1",
+    "gulp-webserver": "^0.8.1",
+    "jquery": "^2.1.1",
+    "underscore": "^1.7.0"
+  },
+  "browser": {
+    "backbone": "./src/js/adapters/backbone.js"
+  }
+}

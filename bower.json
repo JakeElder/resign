@@ -1,0 +1,8 @@
+{
+  "name": "resign",
+  "version": "0.0.0",
+  "dependencies": {
+    "reset-scss": "*",
+    "bourbon": "~3"
+  }
+}
