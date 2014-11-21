@@ -2,32 +2,22 @@
 // Dependencies
 //==============================================================================
 
-var SlideCollection = require('./collections/slide-collection');
+var Parse = require('parse');
+var Slide = require('../models/slide');
 
 
 //==============================================================================
-// App
+// Collection
 //==============================================================================
 
-var App = function() { this.init(); };
-
-
-//==============================================================================
-// Public functions
-//==============================================================================
-
-App.prototype.init = function() {
-  this.slides = new SlideCollection();
-  this.slides.on('sync', function(collection) {
-    console.log(collection);
-  });
-  this.slides.fetch();
-};
+var SlideCollection = Parse.Collection.extend({
+  model: Slide
+});
 
 
 //==============================================================================
-// Go
+// Export
 //==============================================================================
 
-window.app = new App();
+module.exports = SlideCollection;
 

@@ -11,9 +11,11 @@
     "gulp-util": "^3.0.1",
     "gulp-webserver": "^0.8.1",
     "jquery": "^2.1.1",
+    "parse-browserify": "^0.1.1",
     "underscore": "^1.7.0"
   },
   "browser": {
-    "backbone": "./src/js/adapters/backbone.js"
+    "backbone": "./src/js/adapters/backbone.js",
+    "parse": "./src/js/adapters/parse.js"
   }
 }
