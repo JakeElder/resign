@@ -39,7 +39,7 @@ gulp.task('server', function() {
 gulp.task('watch', function() {
   gulp.watch('./src/index.html', ['html']);
   gulp.watch('./src/scss/**/*.scss', ['scss']);
-  gulp.watch('./src/js/default.js', ['js']);
+  gulp.watch('./src/js/**/*.js', ['js']);
 });
 
 gulp.task('symlink', function() {

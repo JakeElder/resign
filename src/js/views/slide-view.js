@@ -2,35 +2,39 @@
 // Dependencies
 //==============================================================================
 
-var SlideCollectionView = require('./views/slide-collection-view');
-var SlideCollection     = require('./collections/slide-collection');
-var $                   = require('jquery');
+var Backbone = require('backbone');
+var extend   = require('util')._extend;
+var _        = require('underscore');
+var fs       = require('fs');
+var template = _.template(
+  fs.readFileSync(__dirname + '/../templates/slide.tpl', 'utf8')
+);
 
 
 //==============================================================================
-// App
+// Constructor
 //==============================================================================
 
-var App = function() { this.init(); };
+var SlideView = function() {
+  Backbone.View.apply(this, arguments);
+};
+extend(SlideView.prototype, Backbone.View.prototype);
+SlideView.prototype.tagName = 'li';
 
 
 //==============================================================================
 // Public functions
 //==============================================================================
 
-App.prototype.init = function() {
-  this.slideCollectionView = new SlideCollectionView({
-    collection: new SlideCollection()
-  });
-  this.slideCollectionView.on('init', function() {
-    this.render().$el.appendTo($('body'));
-  });
+SlideView.prototype.render = function() {
+  this.$el.html(template(this.model.toJSON()));
+  return this;
 };
 
 
 //==============================================================================
-// Go
+// Export
 //==============================================================================
 
-window.app = new App();
+module.exports = SlideView;
 
