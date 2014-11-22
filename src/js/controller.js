@@ -4,33 +4,33 @@
 
 var Backbone = require('backbone');
 var extend   = require('util')._extend;
+var $        = require('jquery');
 var _        = require('underscore');
-var fs       = require('fs');
-var template = _.template(
-  fs.readFileSync(__dirname + '/../templates/slide.tpl', 'utf8')
-);
 
 
 //==============================================================================
 // Constructor
 //==============================================================================
 
-var SlideView = function() {
-  Backbone.View.apply(this, arguments);
+var Controller = function() {
+  this._deferred = $.Deferred();
+  this.ready = this._deferred.promise();
+  this._bindMethodContexts();
+  this.on('init', this._handleInit);
+};
+extend(Controller.prototype, Backbone.Events);
+
+
+//==============================================================================
+// Private functions
+//==============================================================================
+
+Controller.prototype._bindMethodContexts = function() {
+  this._handleInit = _.bind(this._handleInit, this);
 };
 
-extend(SlideView.prototype, Backbone.View.prototype, {
-  tagName: 'li'
-});
-
-
-//==============================================================================
-// Public functions
-//==============================================================================
-
-SlideView.prototype.render = function() {
-  this.$el.html(template(this.model.toJSON()));
-  return this;
+Controller.prototype._handleInit = function() {
+  this._deferred.resolve(this);
 };
 
 
@@ -38,5 +38,5 @@ SlideView.prototype.render = function() {
 // Export
 //==============================================================================
 
-module.exports = SlideView;
+module.exports = Controller;
 

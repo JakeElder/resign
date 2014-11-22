@@ -2,16 +2,19 @@
 // Dependencies
 //==============================================================================
 
-var SlideCollectionView = require('./views/slide-collection-view');
-var SlideCollection     = require('./collections/slide-collection');
-var $                   = require('jquery');
+var SlidesController = require('./controllers/slides-controller');
+var _                = require('underscore');
+var $                = require('jquery');
 
 
 //==============================================================================
 // App
 //==============================================================================
 
-var App = function() { this.init(); };
+var App = function() {
+  this._bindMethodContexts();
+  this.init();
+};
 
 
 //==============================================================================
@@ -19,12 +22,21 @@ var App = function() { this.init(); };
 //==============================================================================
 
 App.prototype.init = function() {
-  this.slideCollectionView = new SlideCollectionView({
-    collection: new SlideCollection()
-  });
-  this.slideCollectionView.on('init', function() {
-    this.render().$el.appendTo($('body'));
-  });
+  this.slidesController = new SlidesController();
+  $.when(this.slidesController.ready).done(this.render);
+};
+
+App.prototype.render = function(controllers) {
+  this.slidesController.$el.appendTo('body');
+};
+
+
+//==============================================================================
+// Private functions
+//==============================================================================
+
+App.prototype._bindMethodContexts = function() {
+  this.render = _.bind(this.render, this);
 };
 
 

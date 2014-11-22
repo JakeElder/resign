@@ -17,7 +17,8 @@
   },
   "browser": {
     "backbone": "./src/js/adapters/backbone.js",
-    "parse": "./src/js/adapters/parse.js"
+    "parse": "./src/js/adapters/parse.js",
+    "controller": "./src/js/controller.js"
   },
   "browserify": {
     "transform": ["brfs"]
