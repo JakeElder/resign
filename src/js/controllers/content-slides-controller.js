@@ -6,8 +6,9 @@ var Controller     = require('controller');
 var Parse          = require('parse');
 var $              = require('jquery');
 var _              = require('underscore');
-var CollectionView = require('../views/slide-collection-view');
-var Collection     = require('../collections/slide-collection');
+
+var CollectionView = require('../views/content-slide-collection-view');
+var Collection     = require('../collections/content-slide-collection');
 var Model          = require('../models/slide');
 
 
@@ -15,7 +16,7 @@ var Model          = require('../models/slide');
 // Constructor
 //==============================================================================
 
-var SlidesController = function() {
+var ContentSlidesController = function() {
   Controller.apply(this, arguments);
   this._bindMethodContexts();
   this.collection = new Collection([], { query: this._getQuery() });
@@ -23,27 +24,27 @@ var SlidesController = function() {
   this.$el = this.collectionView.$el;
   this.collection.fetch({ success: this._handleCollectionFetched });
 };
-$.extend(SlidesController.prototype, Controller.prototype);
+$.extend(ContentSlidesController.prototype, Controller.prototype);
 
 
 //==============================================================================
 // Private functions
 //==============================================================================
 
-SlidesController.prototype._bindMethodContexts = function() {
+ContentSlidesController.prototype._bindMethodContexts = function() {
   this._handleCollectionFetched = _.bind(this._handleCollectionFetched, this);
 };
 
-SlidesController.prototype._getQuery = function() {
+ContentSlidesController.prototype._getQuery = function() {
   return new Parse.Query(Model)
     .matches('cID', this._getQueryRegex());
 };
 
-SlidesController.prototype._getQueryRegex = function() {
+ContentSlidesController.prototype._getQueryRegex = function() {
   return /.*(LEASE).*/;
 };
 
-SlidesController.prototype._handleCollectionFetched = function(collection) {
+ContentSlidesController.prototype._handleCollectionFetched = function(collection) {
   this.collectionView.setCollection(collection);
   this.trigger('init');
 };
@@ -53,5 +54,5 @@ SlidesController.prototype._handleCollectionFetched = function(collection) {
 // Export
 //==============================================================================
 
-module.exports = SlidesController;
+module.exports = ContentSlidesController;
 
