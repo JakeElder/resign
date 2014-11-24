@@ -5,7 +5,7 @@
 var SlideView = require('./slide-view');
 var Backbone  = require('backbone');
 var _         = require('underscore');
-var extend    = require('util')._extend;
+var $         = require('jquery');
 
 
 //==============================================================================
@@ -16,7 +16,7 @@ var SlideCollectionView = function() {
   Backbone.View.apply(this, arguments);
   this._bindMethodContexts();
 };
-extend(SlideCollectionView.prototype, Backbone.View.prototype, {
+$.extend(SlideCollectionView.prototype, Backbone.View.prototype, {
   tagName: 'ul'
 });
 

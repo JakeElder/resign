@@ -3,6 +3,7 @@
 //==============================================================================
 
 var SlidesController = require('./controllers/slides-controller');
+var HeaderController = require('./controllers/header-controller');
 var _                = require('underscore');
 var $                = require('jquery');
 
@@ -23,10 +24,15 @@ var App = function() {
 
 App.prototype.init = function() {
   this.slidesController = new SlidesController();
-  $.when(this.slidesController.ready).done(this.render);
+  this.headerController = new HeaderController();
+  $.when(
+    this.headerController.ready,
+    this.slidesController.ready
+  ).done(this.render);
 };
 
 App.prototype.render = function(controllers) {
+  this.headerController.$el.appendTo('body');
   this.slidesController.$el.appendTo('body');
 };
 

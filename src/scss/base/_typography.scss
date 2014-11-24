@@ -1,0 +1,47 @@
+html {
+  font-family: sans-serif;
+}
+
+@font-face {
+  font-family: "o2-resign";
+  src:url("/fonts/o2-resign.eot");
+  src:url("/fonts/o2-resign.eot?#iefix") format("embedded-opentype"),
+    url("/fonts/o2-resign.woff") format("woff"),
+    url("/fonts/o2-resign.ttf") format("truetype"),
+    url("/fonts/o2-resign.svg#o2-resign") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+%icon {
+  font-family: "o2-resign" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  vertical-align: top;
+}
+
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  @extend %icon;
+}
+
+.icon-down-arrow:before {
+  @extend %icon;
+  content: "a";
+}
+.icon-telefonica:before {
+  @extend %icon;
+  content: "c";
+}
+.icon-o2:before {
+  @extend %icon;
+  content: "b";
+}
+

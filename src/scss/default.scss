@@ -6,9 +6,8 @@
 // Base
 @import "./base/colors";
 @import "./base/typography";
+@import "./base/buttons";
 
 
 // Modules
-body {
-  background-color: #FFF;
-}
+@import "./modules/site-header";

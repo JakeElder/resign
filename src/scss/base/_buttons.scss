@@ -1,0 +1,12 @@
+.button {
+  display: inline-block;
+  @include background-image(linear-gradient(#4cabd7, #1b7ba6));
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 11px;
+  height: 30px;
+  line-height: 30px;
+  padding-left: 18px;
+  padding-right: 18px;
+  color: $white;
+}

@@ -5,7 +5,6 @@
 var Controller     = require('controller');
 var Parse          = require('parse');
 var $              = require('jquery');
-var extend         = require('util')._extend;
 var _              = require('underscore');
 var CollectionView = require('../views/slide-collection-view');
 var Collection     = require('../collections/slide-collection');
@@ -24,7 +23,7 @@ var SlidesController = function() {
   this.$el = this.collectionView.$el;
   this.collection.fetch({ success: this._handleCollectionFetched });
 };
-extend(SlidesController.prototype, Controller.prototype);
+$.extend(SlidesController.prototype, Controller.prototype);
 
 
 //==============================================================================

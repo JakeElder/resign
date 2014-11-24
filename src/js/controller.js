@@ -3,7 +3,6 @@
 //==============================================================================
 
 var Backbone = require('backbone');
-var extend   = require('util')._extend;
 var $        = require('jquery');
 var _        = require('underscore');
 
@@ -18,7 +17,7 @@ var Controller = function() {
   this._bindMethodContexts();
   this.on('init', this._handleInit);
 };
-extend(Controller.prototype, Backbone.Events);
+$.extend(Controller.prototype, Backbone.Events);
 
 
 //==============================================================================

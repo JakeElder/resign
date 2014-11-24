@@ -1,0 +1,25 @@
+.site-header {
+  @include background-image(linear-gradient(#fbfbfb, #e4e3e3));
+  padding: 7px 10px;
+  text-align: justify;
+  overflow: hidden;
+}
+
+.site-header__logo {
+  @extend .icon-o2;
+  display: inline-block;
+  font-size: 26px;
+  color: $o2-blue;
+  position: relative;
+  top: 2px;
+  &:before { vertical-align: top; }
+}
+
+.site-header__lede {
+  @extend .button;
+  float: right;
+}
+
+.site-header__telefonica-logo {
+  // @extend .icon-telefonica;
+}

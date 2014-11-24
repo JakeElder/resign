@@ -43,8 +43,8 @@ gulp.task('watch', function() {
 });
 
 gulp.task('symlink', function() {
-  return gulp.src(['./src/images/', './src/scss/'])
-    .pipe(symlink(['./dist/images', './dist/scss']));
+  return gulp.src(['./src/images/', './src/scss/', './src/fonts/'])
+    .pipe(symlink(['./dist/images', './dist/scss', './dist/fonts']));
 });
 
 gulp.task('default', ['html', 'js', 'scss', 'server', 'watch']);
