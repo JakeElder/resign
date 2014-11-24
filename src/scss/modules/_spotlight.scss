@@ -1,0 +1,14 @@
+.spotlight {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  max-width: 500px;
+  &:after {
+    display: block;
+    content: "";
+    padding-bottom: 97.8125%;
+    background-image: url("/images/spotlight.png");
+    background-size: contain;
+  }
+}
