@@ -1,0 +1,9 @@
+.content-area {
+  @include background-image(linear-gradient(#102550, #449ed0));
+  position: absolute;
+  top: 44px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+

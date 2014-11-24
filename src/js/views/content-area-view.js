@@ -1,30 +1,30 @@
-
 //==============================================================================
 // Dependencies
 //==============================================================================
 
-var Controller = require('controller');
-var $          = require('jquery');
-var View       = require('../views/header-view');
+var Backbone = require('backbone');
+var $        = require('jquery');
+var _        = require('underscore');
+var fs       = require('fs');
+var template = _.template(
+  fs.readFileSync(__dirname + '/../templates/content-area.tpl', 'utf8')
+);
 
 
 //==============================================================================
 // Constructor
 //==============================================================================
 
-var SlidesController = function() {
-  Controller.apply(this, arguments);
-  this.view = new View();
-  this.$el = this.view.$el;
-  this.trigger('init');
+var ContentAreaView = function() {
+  Backbone.View.apply(this, arguments);
+  this.setElement($(template()));
 };
-$.extend(SlidesController.prototype, Controller.prototype);
+$.extend(ContentAreaView.prototype, Backbone.View.prototype);
 
 
 //==============================================================================
 // Export
 //==============================================================================
 
-module.exports = SlidesController;
-
+module.exports = ContentAreaView;
 

@@ -4,10 +4,15 @@
 
 
 // Base
+@import "./base/utilities";
 @import "./base/colors";
 @import "./base/typography";
 @import "./base/buttons";
 
+html { height: 100%; }
+body { @extend %fit-parent; }
+
 
 // Modules
 @import "./modules/site-header";
+@import "./modules/content-area";

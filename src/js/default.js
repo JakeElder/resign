@@ -2,10 +2,11 @@
 // Dependencies
 //==============================================================================
 
-var SlidesController = require('./controllers/slides-controller');
-var HeaderController = require('./controllers/header-controller');
-var _                = require('underscore');
-var $                = require('jquery');
+var _                     = require('underscore');
+var $                     = require('jquery');
+
+var HeaderController      = require('./controllers/header-controller');
+var ContentAreaController = require('./controllers/content-area-controller');
 
 
 //==============================================================================
@@ -23,17 +24,19 @@ var App = function() {
 //==============================================================================
 
 App.prototype.init = function() {
-  this.slidesController = new SlidesController();
-  this.headerController = new HeaderController();
+  this.headerController      = new HeaderController();
+  this.contentAreaController = new ContentAreaController();
   $.when(
     this.headerController.ready,
-    this.slidesController.ready
+    this.contentAreaController.ready
   ).done(this.render);
 };
 
 App.prototype.render = function(controllers) {
-  this.headerController.$el.appendTo('body');
-  this.slidesController.$el.appendTo('body');
+  $('body').append(
+    this.headerController.$el,
+    this.contentAreaController.$el
+  );
 };
 
 
