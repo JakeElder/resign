@@ -4,15 +4,19 @@ html {
 }
 
 @font-face {
-  font-family: "o2-resign";
-  src:url("/fonts/o2-resign.eot");
-  src:url("/fonts/o2-resign.eot?#iefix") format("embedded-opentype"),
-    url("/fonts/o2-resign.woff") format("woff"),
-    url("/fonts/o2-resign.ttf") format("truetype"),
-    url("/fonts/o2-resign.svg#o2-resign") format("svg");
-  font-weight: normal;
-  font-style: normal;
+  font-family: "Open Sans";
+  src: url("/fonts/open-sans.woff");
+}
 
+@font-face {
+  font-family: "Open Sans";
+  src: url("/fonts/open-sans-light.woff");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "o2-resign";
+  src: url("/fonts/o2-resign.woff");
 }
 
 %icon {

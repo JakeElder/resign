@@ -53,10 +53,12 @@ App.prototype.setSlide = function(cID) {
 
 App.prototype.prev = function() {
   this.contentAreaController.contentSlidesController.collectionView.prev();
+  this.contentAreaController.spotlightController.subjectCollectionView.prev();
 };
 
 App.prototype.next = function() {
   this.contentAreaController.contentSlidesController.collectionView.next();
+  this.contentAreaController.spotlightController.subjectCollectionView.next();
 };
 
 
