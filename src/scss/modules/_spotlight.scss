@@ -1,14 +1,29 @@
 .spotlight {
   margin-left: auto;
   margin-right: auto;
-  padding-left: 20px;
-  padding-right: 20px;
-  max-width: 500px;
-  &:after {
-    display: block;
-    content: "";
-    padding-bottom: 97.8125%;
+  max-width: 310px;
+  margin-bottom: 20px;
+  position: relative;
+
+  @include intrinsic-ratio(640, 626) {
     background-image: url("/images/spotlight.png");
     background-size: contain;
+  }
+}
+
+.spotlight-subject-collection {
+  @extend %fit-parent;
+}
+
+.spotlight-subject-collection__subject {
+  position: absolute;
+  top: 23%;
+  left: 50%;
+  width: 35%;
+  background-size: contain;
+  @include transform(translateX(-50%));
+
+  &[data-cid="INTRO"] {
+    @include intrinsic-ratio(203, 265);
   }
 }

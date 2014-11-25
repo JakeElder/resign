@@ -1,0 +1,18 @@
+.content-slide-collection {
+  @extend %fit-parent;
+  transition: transform 500ms;
+}
+
+.content-slide-collection__slide {
+  @extend %fit-parent;
+
+  &[data-cid="INTRO"] {
+    text-align: center;
+  }
+}
+
+.content-slide-collection__content-container {
+  margin-top: 320px;
+  padding-left: 20px;
+  padding-right: 20px;
+}

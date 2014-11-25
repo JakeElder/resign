@@ -8,29 +8,37 @@ var $                     = require('jquery');
 var HeaderController      = require('./controllers/header-controller');
 var ContentAreaController = require('./controllers/content-area-controller');
 
+var $window               = $(window);
+
 
 //==============================================================================
 // App
 //==============================================================================
 
 var App = function() {
+  this.headerController      = new HeaderController();
+  this.contentAreaController = new ContentAreaController();
+
   this._bindMethodContexts();
-  this.init();
+
+  this._throttledPrev = _.throttle(this.prev, 400, { trailing: false });
+  this._throttledNext = _.throttle(this.next, 400, { trailing: false });
+
+  var app = this;
+
+  $.when(
+    this.headerController.ready,
+    this.contentAreaController.ready
+  ).done(function() {
+    app._bindEventHandlers();
+    app.render();
+  });
 };
 
 
 //==============================================================================
 // Public functions
 //==============================================================================
-
-App.prototype.init = function() {
-  this.headerController      = new HeaderController();
-  this.contentAreaController = new ContentAreaController();
-  $.when(
-    this.headerController.ready,
-    this.contentAreaController.ready
-  ).done(this.render);
-};
 
 App.prototype.render = function(controllers) {
   $('body').append(
@@ -39,13 +47,40 @@ App.prototype.render = function(controllers) {
   );
 };
 
+App.prototype.setSlide = function(cID) {
+  this.contentAreaController.contentSlidesController.collectionView.showSlide(cID);
+};
+
+App.prototype.prev = function() {
+  this.contentAreaController.contentSlidesController.collectionView.prev();
+};
+
+App.prototype.next = function() {
+  this.contentAreaController.contentSlidesController.collectionView.next();
+};
+
 
 //==============================================================================
 // Private functions
 //==============================================================================
 
 App.prototype._bindMethodContexts = function() {
-  this.render = _.bind(this.render, this);
+  this.render            = _.bind(this.render, this);
+  this.next              = _.bind(this.next, this);
+  this._handleMousewheel = _.bind(this._handleMousewheel, this);
+};
+
+App.prototype._bindEventHandlers = function() {
+  $window.on('mousewheel DOMMouseScroll', this._handleMousewheel);
+};
+
+App.prototype._handleMousewheel = function(e) {
+  e.preventDefault();
+  if (e.originalEvent.deltaY < 0) {
+    this._throttledPrev();
+  } else if (e.originalEvent.deltaY > 0) {
+    this._throttledNext();
+  }
 };
 
 

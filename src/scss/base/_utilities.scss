@@ -5,3 +5,19 @@
   bottom: 0;
   left: 0;
 }
+
+%intrinsic-ratio-base {
+  &:after {
+    display: block;
+    content: "";
+  }
+}
+
+@mixin intrinsic-ratio($width, $height) {
+  @extend %intrinsic-ratio-base;
+  &:after {
+    padding-bottom: (percentage($height / $width));
+    @content;
+  }
+}
+

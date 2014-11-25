@@ -1,0 +1,13 @@
+.continue-prompt {
+  display: block;
+  margin-top: 16px;
+  color: $white;
+  text-decoration: none;
+  text-align: center;
+}
+
+.continue-prompt__icon {
+  font-size: 28px;
+  @extend .icon-down-arrow;
+}
+

@@ -4,14 +4,7 @@
 
 var Backbone = require('backbone');
 var $        = require('jquery');
-var _        = require('underscore');
-var fs       = require('fs');
-var template = _.template(
-  fs.readFileSync(__dirname + '/../templates/content-slide.tpl', 'utf8')
-);
-var $continuePrompt = $(fs.readFileSync(
-  __dirname + '/../templates/continue-prompt.tpl', 'utf8'
-));
+
 
 //==============================================================================
 // Constructor
@@ -19,12 +12,11 @@ var $continuePrompt = $(fs.readFileSync(
 
 var ContentSlideView = function() {
   Backbone.View.apply(this, arguments);
-  this.$el.attr('data-cid', this.model.get('cID'));
 };
 
 $.extend(ContentSlideView.prototype, Backbone.View.prototype, {
   tagName: 'li',
-  className: 'content-slide-collection__slide'
+  className: 'spotlight-subject-collection__subject'
 });
 
 
@@ -33,8 +25,8 @@ $.extend(ContentSlideView.prototype, Backbone.View.prototype, {
 //==============================================================================
 
 ContentSlideView.prototype.render = function() {
-  this.$el.html(template(this.model.toJSON()));
-  this.$el.append($continuePrompt.clone());
+  this.$el.attr('data-cid', this.model.get('cID'));
+  this.$el.css('background-image', 'url("/images/content/' + this.model.get('imageName') + '")' );
   return this;
 };
 

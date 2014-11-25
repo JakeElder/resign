@@ -58,11 +58,12 @@ ContentAreaController.prototype._getQuery = function() {
 };
 
 ContentAreaController.prototype._getQueryRegex = function() {
-  return /.*(LEASE).*/;
+  return /.*/;
 };
 
 ContentAreaController.prototype._handleCollectionFetched = function(collection) {
   this.contentSlidesController.setCollection(collection);
+  this.spotlightController.setCollection(collection);
 };
 
 ContentAreaController.prototype._handleSubViewsReady = function() {
