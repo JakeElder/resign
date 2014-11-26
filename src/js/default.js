@@ -21,8 +21,8 @@ var App = function() {
 
   this._bindMethodContexts();
 
-  this._throttledPrev = _.throttle(this.prev, 400, { trailing: false });
-  this._throttledNext = _.throttle(this.next, 400, { trailing: false });
+  this._throttledPrev = _.throttle(this.prev, 1000, { trailing: false });
+  this._throttledNext = _.throttle(this.next, 1000, { trailing: false });
 
   var app = this;
 

@@ -1,8 +1,10 @@
 .site-header {
   @include background-image(linear-gradient(#fbfbfb, #e4e3e3));
+}
+
+.site-header__container {
   padding: 7px 10px;
-  text-align: justify;
-  overflow: hidden;
+  height: 30px;
 }
 
 .site-header__logo {
@@ -15,11 +17,50 @@
   &:before { vertical-align: top; }
 }
 
-.site-header__lede {
+.site-header__lede-button{
   @extend .button;
   float: right;
 }
+.site-header__lede-link { display: none; }
 
 .site-header__telefonica-logo {
-  // @extend .icon-telefonica;
+  @extend .icon-telefonica;
+  display: none;
 }
+
+@include medium-viewport {
+  .site-header__container {
+    padding: 26px 20px;
+    margin: auto;
+    height: 50px;
+    max-width: 1130px;
+    text-align: center;
+    font-family: "Open Sans";
+  }
+
+  .site-header__lede-button { display: none; }
+  .site-header__lede-link {
+    display: inline;
+    color: #419edb;
+    font-size: 20px;
+    text-decoration: none;
+  }
+
+  .site-header__logo {
+    font-size: 50px;
+    float: left;
+    position: static;
+  }
+
+  .site-header__telefonica-logo {
+    display: block;
+    float: right;
+    font-size: 100px;
+    color: #2f4f5a;
+    &:before {
+      position: relative;
+      top: -35px;
+    }
+  }
+}
+

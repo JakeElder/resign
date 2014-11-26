@@ -20,24 +20,62 @@
   top: 23%;
   left: 50%;
   width: 35%;
-  background-size: contain;
   transition: opacity 500ms;
 
-  img {
-    position: absolute;
+  &:after {
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: relative;
     left: -50%;
-    width: 100%;
   }
 
   &.inactive { opacity: 0; }
 
   &[data-cid="INTRO"] {
     top: 32%;
+    @include intrinsic-ratio(203, 265) {
+      background-image: url("/images/content/clock.png");
+    }
   }
 
   &[data-cid="O2_LEASE"] {
     top: 37%;
     width: 26%;
+    @include intrinsic-ratio(165, 276) {
+      background-image: url("/images/content/sim-card.png");
+    }
+  }
+
+  &[data-cid="MS365"] {
+    top: 37%;
+    width: 38%;
+    @include intrinsic-ratio(235, 281) {
+      background-image: url("/images/content/office-365.png");
+    }
+  }
+
+  &[data-cid="PRIORITY"] {
+    top: 37%;
+    width: 42%;
+    @include intrinsic-ratio(242, 240) {
+      background-image: url("/images/content/priority.png");
+    }
+  }
+
+  &[data-cid="4G"] {
+    top: 37%;
+    width: 42%;
+    @include intrinsic-ratio(252, 225) {
+      background-image: url("/images/content/4g.png");
+    }
+  }
+
+  &[data-cid="O2_GURU"] {
+    top: 37%;
+    width: 53%;
+    @include intrinsic-ratio(317, 221) {
+      background-image: url("/images/content/o2-guru.png");
+    }
   }
 }
 
