@@ -8,3 +8,10 @@
   overflow: hidden;
 }
 
+@include medium-viewport {
+  .content-area__container {
+    width: 710px;
+    margin: auto;
+  }
+}
+

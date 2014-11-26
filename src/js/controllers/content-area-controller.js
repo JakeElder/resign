@@ -67,7 +67,7 @@ ContentAreaController.prototype._handleCollectionFetched = function(collection) 
 };
 
 ContentAreaController.prototype._handleSubViewsReady = function() {
-  this.$el.append(
+  this.$el.find('.content-area__container').append(
     this.spotlightController.$el,
     this.contentSlidesController.$el
   );

@@ -41,3 +41,10 @@
   }
 }
 
+
+@include medium-viewport {
+  .spotlight {
+    margin-left: -20px;
+  }
+}
+

@@ -21,3 +21,8 @@
   }
 }
 
+@mixin medium-viewport {
+  @media (min-width: 769px) {
+    @content;
+  }
+}
