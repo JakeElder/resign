@@ -9,9 +9,7 @@ var fs       = require('fs');
 var template = _.template(
   fs.readFileSync(__dirname + '/../templates/content-slide.tpl', 'utf8')
 );
-var $continuePrompt = $(fs.readFileSync(
-  __dirname + '/../templates/continue-prompt.tpl', 'utf8'
-));
+
 
 //==============================================================================
 // Constructor
@@ -34,7 +32,6 @@ $.extend(ContentSlideView.prototype, Backbone.View.prototype, {
 
 ContentSlideView.prototype.render = function() {
   this.$el.html(template(this.model.toJSON()));
-  this.$el.append($continuePrompt.clone());
   return this;
 };
 

@@ -4,6 +4,11 @@
 
 var Backbone = require('backbone');
 var $        = require('jquery');
+var _        = require('underscore');
+var fs       = require('fs');
+var template = _.template(
+  fs.readFileSync(__dirname + '/../templates/spotlight-subject.tpl', 'utf8')
+);
 
 
 //==============================================================================
@@ -25,8 +30,11 @@ $.extend(ContentSlideView.prototype, Backbone.View.prototype, {
 //==============================================================================
 
 ContentSlideView.prototype.render = function() {
+  var data = $.extend({}, this.model.attributes, {
+    imageUrl: '/images/content/' + this.model.get('imageName')
+  });
   this.$el.attr('data-cid', this.model.get('cID'));
-  this.$el.css('background-image', 'url("/images/content/' + this.model.get('imageName') + '")' );
+  this.$el.html(template(data));
   return this;
 };
 

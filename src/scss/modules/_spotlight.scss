@@ -22,18 +22,22 @@
   width: 35%;
   background-size: contain;
   transition: opacity 500ms;
-  @include transform(translateX(-50%));
+
+  img {
+    position: absolute;
+    left: -50%;
+    width: 100%;
+  }
 
   &.inactive { opacity: 0; }
 
   &[data-cid="INTRO"] {
     top: 32%;
-    @include intrinsic-ratio(203, 265);
   }
 
   &[data-cid="O2_LEASE"] {
     top: 37%;
     width: 26%;
-    @include intrinsic-ratio(165, 276);
   }
 }
+
