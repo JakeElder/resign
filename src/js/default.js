@@ -7,6 +7,7 @@ var $                     = require('jquery');
 
 var HeaderController      = require('./controllers/header-controller');
 var ContentAreaController = require('./controllers/content-area-controller');
+var FooterController      = require('./controllers/footer-controller');
 
 var $window               = $(window);
 
@@ -18,6 +19,7 @@ var $window               = $(window);
 var App = function() {
   this.headerController      = new HeaderController();
   this.contentAreaController = new ContentAreaController();
+  this.footerController      = new FooterController();
 
   this._bindMethodContexts();
 
@@ -28,7 +30,8 @@ var App = function() {
 
   $.when(
     this.headerController.ready,
-    this.contentAreaController.ready
+    this.contentAreaController.ready,
+    this.footerController.ready
   ).done(function() {
     app._bindEventHandlers();
     app.render();
@@ -43,22 +46,27 @@ var App = function() {
 App.prototype.render = function(controllers) {
   $('body').append(
     this.headerController.$el,
-    this.contentAreaController.$el
+    this.contentAreaController.$el,
+    this.footerController.$el
   );
 };
 
 App.prototype.setSlide = function(cID) {
   this.contentAreaController.contentSlidesController.collectionView.showSlide(cID);
+  this._showHideFooter();
 };
 
 App.prototype.prev = function() {
+  // TODO: This is pretty jank. Need a global view model + pub/sub
   this.contentAreaController.contentSlidesController.collectionView.prev();
   this.contentAreaController.spotlightController.subjectCollectionView.prev();
+  this._showHideFooter();
 };
 
 App.prototype.next = function() {
   this.contentAreaController.contentSlidesController.collectionView.next();
   this.contentAreaController.spotlightController.subjectCollectionView.next();
+  this._showHideFooter();
 };
 
 
@@ -82,6 +90,15 @@ App.prototype._handleMousewheel = function(e) {
     this._throttledPrev();
   } else if (e.originalEvent.deltaY > 0) {
     this._throttledNext();
+  }
+};
+
+App.prototype._showHideFooter = function() {
+  var idx = this.contentAreaController.contentSlidesController.collectionView._activeSlideIdx;
+  if(idx + 1 == this.contentAreaController.slideCollection.length) {
+    this.footerController.view.show();
+  } else {
+    this.footerController.view.hide();
   }
 };
 
