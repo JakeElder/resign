@@ -12,6 +12,7 @@
     "gulp-util": "^3.0.1",
     "gulp-webserver": "^0.8.1",
     "jquery": "^2.1.1",
+    "marked": "^0.3.2",
     "parse-browserify": "^0.1.1",
     "underscore": "^1.7.0"
   },
@@ -20,9 +21,12 @@
     "parse": "./src/js/adapters/parse.js",
     "controller": "./src/js/controller.js",
     "settings": "./src/js/settings-helper.js",
-    "disposition": "./src/js/disposition-helper.js"
+    "disposition": "./src/js/disposition-helper.js",
+    "content": "./src/js/content-helper.js"
   },
   "browserify": {
-    "transform": ["brfs"]
+    "transform": [
+      "brfs"
+    ]
   }
 }

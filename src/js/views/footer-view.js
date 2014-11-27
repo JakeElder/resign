@@ -15,9 +15,9 @@ var template = _.template(
 // Constructor
 //==============================================================================
 
-var FooterView = function() {
+var FooterView = function(data) {
   Backbone.View.apply(this, arguments);
-  this.setElement($(template()));
+  this.setElement($(template(data)));
 };
 var proto = FooterView.prototype;
 $.extend(FooterView.prototype, Backbone.View.prototype);

@@ -38,16 +38,15 @@
   }
 }
 
-.site-footer__primary-links,
-.site-footer__secondary-links {
+.site-footer ul {
   @extend %site-footer__list;
 }
 
-.site-footer__primary-links {
+.site-footer ul:first-of-type {
   float: left;
 }
 
-.site-footer__secondary-links {
+.site-footer ul:last-of-type {
   float: right;
 }
 

@@ -18,7 +18,18 @@
 //==============================================================================
 
 var $          = require('jquery');
+var marked     = require('marked');
 var Collection = require('./collections/content-collection');
+
+
+//==============================================================================
+// Config
+//==============================================================================
+
+var MARKDOWN_CIDS = [
+  'FOOTER_LIST_LEFT',
+  'FOOTER_LIST_RIGHT'
+];
 
 
 //==============================================================================
@@ -46,7 +57,9 @@ proto.get = function(cID) {
     return model.get('cID') === cID;
   });
   if (setting.length === 0) { return; }
-  return setting[0].get('value');
+  var value = setting[0].get('value');
+  if(MARKDOWN_CIDS.indexOf(cID) !== -1) { value = marked(value); }
+  return value;
 };
 
 
