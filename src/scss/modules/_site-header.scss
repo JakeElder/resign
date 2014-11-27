@@ -16,12 +16,7 @@
   top: 2px;
   &:before { vertical-align: top; }
 }
-
-.site-header__lede-button{
-  @extend .button;
-  float: right;
-}
-.site-header__lede-link { display: none; }
+.site-header__cta { display: none; }
 
 .site-header__telefonica-logo {
   @extend .icon-telefonica;
@@ -38,8 +33,7 @@
     font-family: "Open Sans";
   }
 
-  .site-header__lede-button { display: none; }
-  .site-header__lede-link {
+  .site-header__cta {
     display: inline;
     color: #419edb;
     font-size: 20px;

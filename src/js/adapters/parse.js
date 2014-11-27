@@ -1,6 +1,6 @@
 var Parse = require('parse-browserify');
 
-Parse.initialize('HpzrN8moafZdGs6wLoApLx9GE2GZR5qMUqyyrBdy', 'XOSPwoTnYzGkdVDvdP85TvH470xvZBtp0B4oDmeH');
+Parse.initialize('fTmPHcK6G6jCib7JIQvrU5SXEXdU85XE5Gtm4woe', '8nN5pJXDERhQBMpUl5QNdOyy107qv4yWitrlYqu9');
 
 module.exports = Parse;
 
