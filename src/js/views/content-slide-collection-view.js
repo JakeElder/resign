@@ -5,6 +5,7 @@
 var Backbone         = require('backbone');
 var _                = require('underscore');
 var $                = require('jquery');
+var viewModel        = require('view-model');
 
 var ContentSlideView = require('./content-slide-view');
 
@@ -15,8 +16,8 @@ var ContentSlideView = require('./content-slide-view');
 
 var ContentSlideCollectionView = function() {
   Backbone.View.apply(this, arguments);
-  this._rendered = false;
   this._bindMethodContexts();
+  this._bindEventHandlers();
 };
 var proto = ContentSlideCollectionView.prototype;
 $.extend(proto, Backbone.View.prototype, {
@@ -32,13 +33,7 @@ $.extend(proto, Backbone.View.prototype, {
 proto.setCollection = function(collection) {
   this.contentSlideViews = this._initContentSlideViews(collection);
   this.render();
-  if (!this._rendered) {
-    this.$('.content-slide-collection__slide').each(function(idx) {
-      $(this).css('top', (idx * 100) + '%' );
-    });
-    this._rendered = true;
-    this._activeSlideIdx = 0;
-  }
+  this._setInitialState();
 };
 
 proto.render = function() {
@@ -46,31 +41,20 @@ proto.render = function() {
   return this;
 };
 
-proto.showSlide = function(cID) {
-  this.showSlideByIdx(this.idxFromCID(cID));
-};
-
-proto.showSlideByIdx = function(idx) {
+proto.showSlide = function(idx) {
   if (!this.$contentSlides[idx]) {
     throw 'No content slide at index: ' + idx;
   }
   var transform = 'translateZ(0) translateY(-' + (idx * 100) + '%)';
   this.$el.css('transform', transform);
-  this._activeSlideIdx = idx;
 };
 
 proto.next = function() {
-  this.showSlideByIdx(this._activeSlideIdx + 1);
+  viewModel.set('activeSlideIdx', viewModel.get('activeSlideIdx') + 1);
 };
 
 proto.prev = function() {
-  this.showSlideByIdx(this._activeSlideIdx - 1);
-};
-
-proto.idxFromCID = function(cID) {
-  var idx = this.$contentSlides.filter('[data-cid="' + cID + '"]').index();
-  if (idx === -1) { throw 'Invalid slide cID: ' + cID; }
-  return idx;
+  viewModel.set('activeSlideIdx', viewModel.get('activeSlideIdx') - 1);
 };
 
 
@@ -81,6 +65,10 @@ proto.idxFromCID = function(cID) {
 proto._bindMethodContexts = function() {
   this._initContentSlideView  = _.bind(this._initContentSlideView, this);
   this._initContentSlideViews = _.bind(this._initContentSlideViews, this);
+};
+
+proto._bindEventHandlers = function() {
+  viewModel.on('change:activeSlideIdx', this._handleActiveSlideChange, this);
 };
 
 proto._initContentSlideViews = function(collection) {
@@ -95,6 +83,15 @@ proto._initContentSlideView = function(model) {
   return contentSlideView;
 };
 
+proto._setInitialState = function() {
+  this.$('.content-slide-collection__slide').each(function(idx) {
+    $(this).css('top', (idx * 100) + '%' );
+  });
+};
+
+proto._handleActiveSlideChange = function() {
+  this.showSlide(viewModel.get('activeSlideIdx'));
+};
 
 //==============================================================================
 // Export

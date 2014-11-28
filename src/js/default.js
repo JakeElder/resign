@@ -4,6 +4,7 @@
 
 var _                     = require('underscore');
 var $                     = require('jquery');
+var viewModel             = require('view-model');
 
 var HeaderController      = require('./controllers/header-controller');
 var ContentAreaController = require('./controllers/content-area-controller');
@@ -52,21 +53,14 @@ App.prototype.render = function(controllers) {
 };
 
 App.prototype.setSlide = function(cID) {
-  this.contentAreaController.contentSlidesController.collectionView.showSlide(cID);
-  this._showHideFooter();
 };
 
 App.prototype.prev = function() {
-  // TODO: This is pretty jank. Need a global view model + pub/sub
-  this.contentAreaController.contentSlidesController.collectionView.prev();
-  this.contentAreaController.spotlightController.subjectCollectionView.prev();
-  this._showHideFooter();
+  viewModel.set('activeSlideIdx', viewModel.get('activeSlideIdx') - 1);
 };
 
 App.prototype.next = function() {
-  this.contentAreaController.contentSlidesController.collectionView.next();
-  this.contentAreaController.spotlightController.subjectCollectionView.next();
-  this._showHideFooter();
+  viewModel.set('activeSlideIdx', viewModel.get('activeSlideIdx') + 1);
 };
 
 
@@ -81,7 +75,12 @@ App.prototype._bindMethodContexts = function() {
 };
 
 App.prototype._bindEventHandlers = function() {
+  viewModel.on('change:activeSlideIdx', this._handleActiveSlideIdxChange, this);
   $window.on('mousewheel DOMMouseScroll', this._handleMousewheel);
+};
+
+App.prototype._handleActiveSlideIdxChange = function() {
+  this._showHideFooter();
 };
 
 App.prototype._handleMousewheel = function(e) {
@@ -94,12 +93,9 @@ App.prototype._handleMousewheel = function(e) {
 };
 
 App.prototype._showHideFooter = function() {
-  var idx = this.contentAreaController.contentSlidesController.collectionView._activeSlideIdx;
-  if(idx + 1 == this.contentAreaController.slideCollection.length) {
-    this.footerController.view.show();
-  } else {
-    this.footerController.view.hide();
-  }
+  var idx = viewModel.get('activeSlideIdx');
+  var numSlides = viewModel.get('slideCollection').length;
+  this.footerController.view[idx + 1 === numSlides ? 'show' : 'hide']();
 };
 
 

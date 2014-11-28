@@ -2,9 +2,10 @@
 // Dependencies
 //==============================================================================
 
-var Backbone             = require('backbone');
-var _                    = require('underscore');
-var $                    = require('jquery');
+var Backbone    = require('backbone');
+var _           = require('underscore');
+var $           = require('jquery');
+var viewModel   = require('view-model');
 
 var SubjectView = require('./spotlight-subject-view');
 
@@ -15,8 +16,8 @@ var SubjectView = require('./spotlight-subject-view');
 
 var SpotlightSubjectCollectionView = function() {
   Backbone.View.apply(this, arguments);
-  this._rendered = false;
   this._bindMethodContexts();
+  this._bindEventHandlers();
 };
 var proto = SpotlightSubjectCollectionView.prototype;
 $.extend(proto, Backbone.View.prototype, {
@@ -32,12 +33,7 @@ $.extend(proto, Backbone.View.prototype, {
 proto.setCollection = function(collection) {
   this.subjectViews = this._initSubjectViews(collection);
   this.render();
-  if (!this._rendered) {
-    this.$('.spotlight-subject-collection__subject:not(:eq(0))')
-      .addClass('inactive');
-    this._rendered = true;
-    this._activeSubjectIdx = 0;
-  }
+  this._setInitialState();
 };
 
 proto.render = function() {
@@ -45,33 +41,22 @@ proto.render = function() {
   return this;
 };
 
-proto.showSubject = function(cID) {
-  this.showSubjectByIdx(this.idxFromCID(cID));
-};
-
-proto.showSubjectByIdx = function(idx) {
+proto.showSubject = function(idx) {
   if (!this.$subjects[idx]) {
     throw 'No content slide at index: ' + idx;
   }
-  if (this._activeSlideIdx == idx) { return; }
   this.$subjects.addClass('inactive');
   this.$subjects.eq(idx).removeClass('inactive');
-  this._activeSubjectIdx = idx;
 };
 
 proto.next = function() {
-  this.showSubjectByIdx(this._activeSubjectIdx + 1);
+  viewModel.set('activeSlideIdx', viewModel.get('activeSlideIdx') + 1);
 };
 
 proto.prev = function() {
-  this.showSubjectByIdx(this._activeSubjectIdx - 1);
+  viewModel.set('activeSlideIdx', viewModel.get('activeSlideIdx') - 1);
 };
 
-proto.idxFromCID = function(cID) {
-  var idx = this.$subjects.filter('[data-cid="' + cID + '"]').index();
-  if (idx === -1) { throw 'Invalid slide cID: ' + cID; }
-  return idx;
-};
 
 //==============================================================================
 // Private functions
@@ -80,6 +65,10 @@ proto.idxFromCID = function(cID) {
 proto._bindMethodContexts = function() {
   this._initSubjectView  = _.bind(this._initSubjectView, this);
   this._initSubjectViews = _.bind(this._initSubjectViews, this);
+};
+
+proto._bindEventHandlers = function() {
+  viewModel.on('change:activeSlideIdx', this._handleActiveSlideChange, this);
 };
 
 proto._initSubjectViews = function(collection) {
@@ -94,6 +83,14 @@ proto._initSubjectView = function(model) {
   return subjectView;
 };
 
+proto._setInitialState = function() {
+  this.$('.spotlight-subject-collection__subject:not(:eq(0))')
+    .addClass('inactive');
+};
+
+proto._handleActiveSlideChange = function() {
+  this.showSubject(viewModel.get('activeSlideIdx'));
+};
 
 //==============================================================================
 // Export

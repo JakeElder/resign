@@ -7,6 +7,7 @@ var _                       = require('underscore');
 var Controller              = require('controller');
 var Parse                   = require('parse');
 var disposition             = require('disposition');
+var viewModel               = require('view-model');
 
 var View                    = require('../views/content-area-view');
 var ContentSlidesController = require('./content-slides-controller');
@@ -69,8 +70,8 @@ ContentAreaController.prototype._handleCollectionFetched = function(collection) 
     var bIndex = disposition.slideComposition.indexOf(b.get('cID'));
     return aIndex - bIndex;
   });
-  this.contentSlidesController.setCollection(collection);
-  this.spotlightController.setCollection(collection);
+  viewModel.set('slideCollection', collection);
+  viewModel.trigger('ready:slideCollection');
 };
 
 ContentAreaController.prototype._handleSubViewsReady = function() {
@@ -87,4 +88,5 @@ ContentAreaController.prototype._handleSubViewsReady = function() {
 //==============================================================================
 
 module.exports = ContentAreaController;
+
 
