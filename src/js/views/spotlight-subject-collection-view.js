@@ -2,12 +2,13 @@
 // Dependencies
 //==============================================================================
 
-var Backbone    = require('backbone');
-var _           = require('underscore');
-var $           = require('jquery');
-var viewModel   = require('view-model');
+var Backbone         = require('backbone');
+var _                = require('underscore');
+var $                = require('jquery');
+var viewModel        = require('view-model');
 
-var SubjectView = require('./spotlight-subject-view');
+var SubjectView      = require('./spotlight-subject-view');
+var OutroSubjectView = require('./spotlight-outro-subject-view');
 
 
 //==============================================================================
@@ -78,18 +79,25 @@ proto._initSubjectViews = function(collection) {
 };
 
 proto._initSubjectView = function(model) {
-  var subjectView = new SubjectView({ model: model });
+  var subjectView = new (this._getViewFor(model))({ model: model });
   subjectView.$el.appendTo(this.$el);
   return subjectView;
 };
 
 proto._setInitialState = function() {
-  this.$('.spotlight-subject-collection__subject:not(:eq(0))')
-    .addClass('inactive');
+  this.$('li:not(:eq(0))').addClass('inactive');
 };
 
 proto._handleActiveSlideChange = function() {
   this.showSubject(viewModel.get('activeSlideIdx'));
+};
+
+proto._getViewFor = function(model) {
+  if (model.get('cID') === 'OUTRO') {
+    return OutroSubjectView;
+  } else {
+    return SubjectView;
+  }
 };
 
 //==============================================================================

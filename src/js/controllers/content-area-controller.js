@@ -8,6 +8,7 @@ var Controller              = require('controller');
 var Parse                   = require('parse');
 var disposition             = require('disposition');
 var content                 = require('content');
+var settings                = require('settings');
 var viewModel               = require('view-model');
 
 var View                    = require('../views/content-area-view');
@@ -68,7 +69,8 @@ ContentAreaController.prototype._handleCollectionFetched = function(collection) 
   var contentAreaController = this;
   $.when(
     disposition.ready,
-    content.ready
+    content.ready,
+    settings.ready
   ).then(function() {
     contentAreaController._initCollection(collection);
   });
@@ -98,7 +100,9 @@ ContentAreaController.prototype._getOutroSlideModel = function() {
   return new SlideModel({
     cID: 'OUTRO',
     content: content.get('OUTRO_COPY'),
-    tAndCLinkCopy: content.get('SEE_T_AND_C_LINK_COPY')
+    tAndCLinkCopy: content.get('SEE_T_AND_C_LINK_COPY'),
+    spotlightCtaCopy: content.get('SPOTLIGHT_OUTRO_CTA_COPY_' + disposition.contentType),
+    spotlightCtaLink: settings.get('SPOTLIGHT_OUTRO_CTA_LINK_' + disposition.contentType)
   });
 };
 

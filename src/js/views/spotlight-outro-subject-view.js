@@ -4,19 +4,26 @@
 
 var Backbone = require('backbone');
 var $        = require('jquery');
+var _        = require('underscore');
+var fs       = require('fs');
+var template = _.template(
+  fs.readFileSync(__dirname + '/../templates/spotlight-outro-subject.tpl', 'utf8')
+);
+
+var SpotlightSubjectView = require('./spotlight-subject-view');
 
 
 //==============================================================================
 // Constructor
 //==============================================================================
 
-var SpotlightSubjectView = function() {
-  Backbone.View.apply(this, arguments);
+var SpotlightOutroSubjectView = function() {
+  SpotlightSubjectView.apply(this, arguments);
 };
-
-$.extend(SpotlightSubjectView.prototype, Backbone.View.prototype, {
-  tagName: 'li',
-  className: 'spotlight-subject-collection__subject'
+var proto = SpotlightOutroSubjectView.prototype;
+$.extend(proto, SpotlightSubjectView.prototype, {
+  className: 'spotlight-subject-collection__outro-subject',
+  template: template
 });
 
 
@@ -24,9 +31,9 @@ $.extend(SpotlightSubjectView.prototype, Backbone.View.prototype, {
 // Public functions
 //==============================================================================
 
-SpotlightSubjectView.prototype.render = function() {
-  this.$el.attr('data-cid', this.model.get('cID'));
-  return this;
+SpotlightOutroSubjectView.prototype.render = function() {
+  this.$el.html(this.template(this.model.toJSON()));
+  return SpotlightSubjectView.prototype.render.apply(this, arguments);
 };
 
 
@@ -34,5 +41,5 @@ SpotlightSubjectView.prototype.render = function() {
 // Export
 //==============================================================================
 
-module.exports = SpotlightSubjectView;
+module.exports = SpotlightOutroSubjectView;
 
