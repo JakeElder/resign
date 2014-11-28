@@ -7,6 +7,7 @@ var _                       = require('underscore');
 var Controller              = require('controller');
 var Parse                   = require('parse');
 var disposition             = require('disposition');
+var content                 = require('content');
 var viewModel               = require('view-model');
 
 var View                    = require('../views/content-area-view');
@@ -46,7 +47,7 @@ ContentAreaController.prototype._bindMethodContexts = function() {
 };
 
 ContentAreaController.prototype._bindEventHandlers = function() {
-  $.when(disposition.ready).then(this._initSlideCollection);
+  $.when(content.ready, disposition.ready).then(this._initSlideCollection);
   $.when(
     this.spotlightController.ready,
     this.contentSlidesController.ready
@@ -64,12 +65,23 @@ ContentAreaController.prototype._getQuery = function() {
 };
 
 ContentAreaController.prototype._handleCollectionFetched = function(collection) {
+  var contentAreaController = this;
+  $.when(
+    disposition.ready,
+    content.ready
+  ).then(function() {
+    contentAreaController._initCollection(collection);
+  });
+};
+
+ContentAreaController.prototype._initCollection = function(collection) {
   // Sort models by order in disposition.slideComposition
   collection.models.sort(function(a, b) {
     var aIndex = disposition.slideComposition.indexOf(a.get('cID'));
     var bIndex = disposition.slideComposition.indexOf(b.get('cID'));
     return aIndex - bIndex;
   });
+  collection.add(this._getOutroSlideModel());
   viewModel.set('slideCollection', collection);
   viewModel.trigger('ready:slideCollection');
 };
@@ -80,6 +92,14 @@ ContentAreaController.prototype._handleSubViewsReady = function() {
     this.contentSlidesController.$el
   );
   this.trigger('init');
+};
+
+ContentAreaController.prototype._getOutroSlideModel = function() {
+  return new SlideModel({
+    cID: 'OUTRO',
+    content: content.get('OUTRO_COPY'),
+    tAndCLinkCopy: content.get('SEE_T_AND_C_LINK_COPY')
+  });
 };
 
 

@@ -6,7 +6,7 @@
  * Example usage:
  * var content = require('content');
  * $.when(content.ready).then(function() {
- *  content.get('HEADER_CTA_TEXT_CAM');
+ *  content.get('HEADER_CTA_COPY_CAM');
  *    => 'Call 0800 977 7337 or 8002 to get our best offer'
  * });
  *
@@ -28,7 +28,8 @@ var Collection = require('./collections/content-collection');
 
 var MARKDOWN_CIDS = [
   'FOOTER_LIST_LEFT',
-  'FOOTER_LIST_RIGHT'
+  'FOOTER_LIST_RIGHT',
+  'OUTRO_COPY'
 ];
 
 

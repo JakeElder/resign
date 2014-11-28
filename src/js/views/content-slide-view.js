@@ -22,7 +22,8 @@ var ContentSlideView = function() {
 
 $.extend(ContentSlideView.prototype, Backbone.View.prototype, {
   tagName: 'li',
-  className: 'content-slide-collection__slide'
+  className: 'content-slide-collection__slide',
+  template: template
 });
 
 
@@ -31,7 +32,7 @@ $.extend(ContentSlideView.prototype, Backbone.View.prototype, {
 //==============================================================================
 
 ContentSlideView.prototype.render = function() {
-  this.$el.html(template(this.model.toJSON()));
+  this.$el.html(this.template(this.model.toJSON()));
   return this;
 };
 

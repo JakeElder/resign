@@ -6,7 +6,7 @@ var Controller  = require('controller');
 var $           = require('jquery');
 var content     = require('content');
 var disposition = require('disposition');
-var settings     = require('settings');
+var settings    = require('settings');
 var _           = require('underscore');
 
 var View        = require('../views/header-view');
@@ -49,7 +49,7 @@ proto._initView = function() {
 
 proto._getData = function() {
   return {
-    ctaText: content.get('HEADER_CTA_TEXT_' + disposition.contentType),
+    ctaText: content.get('HEADER_CTA_COPY_' + disposition.contentType),
     ctaLink: settings.get('HEADER_CTA_LINK_' + disposition.contentType)
   };
 };

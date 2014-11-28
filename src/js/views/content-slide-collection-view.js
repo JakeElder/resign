@@ -2,12 +2,13 @@
 // Dependencies
 //==============================================================================
 
-var Backbone         = require('backbone');
-var _                = require('underscore');
-var $                = require('jquery');
-var viewModel        = require('view-model');
+var Backbone              = require('backbone');
+var _                     = require('underscore');
+var $                     = require('jquery');
+var viewModel             = require('view-model');
 
-var ContentSlideView = require('./content-slide-view');
+var ContentSlideView      = require('./content-slide-view');
+var OutroContentSlideView = require('./outro-content-slide-view');
 
 
 //==============================================================================
@@ -78,7 +79,7 @@ proto._initContentSlideViews = function(collection) {
 };
 
 proto._initContentSlideView = function(model) {
-  var contentSlideView = new ContentSlideView({ model: model });
+  var contentSlideView = new (this._getViewFor(model))({ model: model });
   contentSlideView.$el.appendTo(this.$el);
   return contentSlideView;
 };
@@ -92,6 +93,15 @@ proto._setInitialState = function() {
 proto._handleActiveSlideChange = function() {
   this.showSlide(viewModel.get('activeSlideIdx'));
 };
+
+proto._getViewFor = function(model) {
+  if (model.get('cID') === 'OUTRO') {
+    return OutroContentSlideView;
+  } else {
+    return ContentSlideView;
+  }
+};
+
 
 //==============================================================================
 // Export
