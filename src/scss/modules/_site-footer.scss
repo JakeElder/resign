@@ -3,7 +3,7 @@
   position: absolute;
   bottom: 0;
   width: 100%;
-  transition: transform 500ms;
+  @include transition(transform 500ms);
   display: none;
 
   @include transform(translateZ(0) translateY(100%));

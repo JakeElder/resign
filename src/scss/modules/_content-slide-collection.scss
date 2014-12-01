@@ -1,6 +1,6 @@
 .content-slide-collection {
   @extend %fit-parent;
-  transition: transform 500ms;
+  @include transition(transform 500ms);
 }
 
 .content-slide-collection__slide {

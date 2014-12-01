@@ -18,7 +18,7 @@
   bottom: 0;
   left: 0;
   width: 200%;
-  transition: transform 500ms;
+  @include transition(transform 500ms);
 }
 
 .content-area__slideshow-container,
