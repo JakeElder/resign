@@ -86,6 +86,7 @@ App.prototype._bindMethodContexts = function() {
 
 App.prototype._bindEventHandlers = function() {
   viewModel.on('change:activeSlideIdx', this._handleActiveSlideIdxChange, this);
+  viewModel.on('change:activeContent', this._handleActiveContentChange, this);
   addWheelListener(window, this._handleMousewheel);
   hammer.on('swipeup', this._handleSwipeUp);
   hammer.on('swipedown', this._handleSwipeDown);
@@ -93,6 +94,14 @@ App.prototype._bindEventHandlers = function() {
 
 App.prototype._handleActiveSlideIdxChange = function() {
   this._showHideFooter();
+};
+
+App.prototype._handleActiveContentChange = function() {
+  if (viewModel.get('activeContent') === 'slideshow') {
+    hammer.get('swipe').set({ enable: true });
+  } else {
+    hammer.get('swipe').set({ enable: false });
+  }
 };
 
 App.prototype._handleMousewheel = function(e) {

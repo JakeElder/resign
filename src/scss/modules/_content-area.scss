@@ -31,7 +31,8 @@
 
 .content-area__t-and-c-container {
   left: 100%;
-  overflow: auto;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
   padding-bottom: 40px;
 }
 
