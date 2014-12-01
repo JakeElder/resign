@@ -9,6 +9,10 @@
   padding-left: 18px;
   padding-right: 18px;
   color: $white;
+
+  .no-cssgradients & {
+    background: url(/images/blue-gradient-small-bg.png) repeat-x bottom;
+  }
 }
 
 .button--glowing {

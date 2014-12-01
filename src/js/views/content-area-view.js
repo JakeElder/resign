@@ -47,11 +47,16 @@ proto._bindEventHandlers = function() {
 };
 
 proto._handleActiveContentChange = function() {
+  var transform;
   var $sectionContainer = this.$el.find('.content-area__section-container');
   if (viewModel.get('activeContent') === 't-and-c') {
-    $sectionContainer.css('transform', 'translateZ(0) translateX(-100%)');
+    transform = 'translateX(-100%)';
+    if (Modernizr.csstransforms3d) { transform = 'translateZ(0) ' + transform; }
+    $sectionContainer.css('transform', transform);
   } else {
-    $sectionContainer.css('transform', 'translateZ(0) translateX(0)');
+    transform = 'translateX(0)';
+    if (Modernizr.csstransforms3d) { transform = 'translateZ(0) ' + transform; }
+    $sectionContainer.css('transform', transform);
   }
 };
 

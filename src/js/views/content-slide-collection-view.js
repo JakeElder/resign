@@ -10,6 +10,8 @@ var viewModel             = require('view-model');
 var ContentSlideView      = require('./content-slide-view');
 var OutroContentSlideView = require('./outro-content-slide-view');
 
+var Modernizr             = window.Modernizr;
+
 
 //==============================================================================
 // Constructor
@@ -46,8 +48,9 @@ proto.showSlide = function(idx) {
   if (!this.$contentSlides[idx]) {
     throw 'No content slide at index: ' + idx;
   }
-  var transform = 'translateZ(0) translateY(-' + (idx * 100) + '%)';
-  this.$el.css('transform', transform);
+  var transform = 'translateY(-' + (idx * 100) + '%)';
+  if (Modernizr.csstransforms3d) { transform = 'translateZ(0) ' + transform; }
+  this.$el.css({ transform: transform });
 };
 
 proto.next = function() {

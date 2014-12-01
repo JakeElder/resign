@@ -1,5 +1,8 @@
 .site-header {
   @include background-image(linear-gradient(#fbfbfb, #e4e3e3));
+  .no-cssgradients & {
+    background: #fbfbfb url(/images/grey-fade-bg.png) repeat-x bottom;
+  }
 }
 
 .site-header__container {

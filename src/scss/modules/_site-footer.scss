@@ -7,6 +7,10 @@
   display: none;
 
   @include transform(translateZ(0) translateY(100%));
+
+  .no-cssgradients & {
+    background: #fbfbfb url(/images/grey-fade-bg.png) repeat-x bottom;
+  }
 }
 
 .site-footer--visible {

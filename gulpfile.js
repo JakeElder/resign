@@ -33,7 +33,7 @@ gulp.task('js', function() {
 
 gulp.task('server', function() {
   return gulp.src('./dist')
-    .pipe(webserver({ livereload: true }));
+    .pipe(webserver({ livereload: true, https: true }));
 });
 
 gulp.task('watch', function() {
@@ -43,8 +43,8 @@ gulp.task('watch', function() {
 });
 
 gulp.task('symlink', function() {
-  return gulp.src(['./src/images/', './src/scss/', './src/fonts/'])
-    .pipe(symlink(['./dist/images', './dist/scss', './dist/fonts']));
+  return gulp.src(['./src/images/', './src/scss/', './src/fonts/', './src/js/vendor/modernizr.js'])
+    .pipe(symlink(['./dist/images', './dist/scss', './dist/fonts', './dist/modernizr.js']));
 });
 
 gulp.task('default', ['html', 'js', 'scss', 'server', 'watch']);

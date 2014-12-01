@@ -10,7 +10,7 @@ var HeaderController      = require('./controllers/header-controller');
 var ContentAreaController = require('./controllers/content-area-controller');
 var FooterController      = require('./controllers/footer-controller');
 
-var $window               = $(window);
+var addWheelListener      = require('./utils/add-wheel-listener');
 
 
 //==============================================================================
@@ -73,7 +73,7 @@ App.prototype._bindMethodContexts = function() {
 
 App.prototype._bindEventHandlers = function() {
   viewModel.on('change:activeSlideIdx', this._handleActiveSlideIdxChange, this);
-  $window.on('mousewheel DOMMouseScroll', this._handleMousewheel);
+  addWheelListener(window, this._handleMousewheel);
 };
 
 App.prototype._handleActiveSlideIdxChange = function() {
@@ -85,9 +85,9 @@ App.prototype._handleMousewheel = function(e) {
     return true;
   }
   e.preventDefault();
-  if (e.originalEvent.deltaY < 0) {
+  if (e.deltaY < 0) {
     this._throttledPrev();
-  } else if (e.originalEvent.deltaY > 0) {
+  } else if (e.deltaY > 0) {
     this._throttledNext();
   }
 };
