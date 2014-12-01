@@ -1,4 +1,3 @@
-
 //==============================================================================
 // Dependencies
 //==============================================================================
@@ -8,19 +7,19 @@ var $          = require('jquery');
 var content    = require('content');
 var _          = require('underscore');
 
-var View       = require('../views/footer-view');
+var View       = require('../views/t-and-c-view');
 
 
 //==============================================================================
 // Constructor
 //==============================================================================
 
-var FooterController = function() {
+var TermsAndConditionsController = function() {
   Controller.apply(this, arguments);
   this._bindMethodContexts();
   $.when(content.ready).then(this._handleContentReady);
 };
-var proto = FooterController.prototype;
+var proto = TermsAndConditionsController.prototype;
 $.extend(proto, Controller.prototype);
 
 
@@ -44,8 +43,7 @@ proto._initView = function() {
 
 proto._getData = function() {
   return {
-    leftList: content.get('FOOTER_LIST_LEFT'),
-    rightList: content.get('FOOTER_LIST_RIGHT')
+    content: content.get('TERMS_AND_CONDITIONS')
   };
 };
 
@@ -54,5 +52,5 @@ proto._getData = function() {
 // Export
 //==============================================================================
 
-module.exports = FooterController;
+module.exports = TermsAndConditionsController;
 

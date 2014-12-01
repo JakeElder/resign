@@ -1,0 +1,24 @@
+.t-and-c {
+  padding: 30px 20px 0 20px;
+  max-width: 800px;
+  margin: auto;
+}
+
+.t-and-c__content {
+  @extend %long-form-copy;
+  margin-bottom: 20px;
+}
+
+.t-and-c__back-link {
+  font-family: "Open Sans";
+  font-weight: 300;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+@include medium-viewport {
+  .t-and-c {
+    padding-top: 50px;
+  }
+}
+

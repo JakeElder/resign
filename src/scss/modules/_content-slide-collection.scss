@@ -17,6 +17,12 @@
   padding-right: 20px;
 }
 
+.content-slide-collection__content-container-inner {
+  max-width: 400px;
+  margin: auto;
+}
+
+
 @include medium-viewport {
   .content-slide-collection__content-container {
     margin-top: 151px;

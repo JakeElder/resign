@@ -52,9 +52,6 @@ App.prototype.render = function(controllers) {
   );
 };
 
-App.prototype.setSlide = function(cID) {
-};
-
 App.prototype.prev = function() {
   viewModel.set('activeSlideIdx', viewModel.get('activeSlideIdx') - 1);
 };
@@ -84,6 +81,9 @@ App.prototype._handleActiveSlideIdxChange = function() {
 };
 
 App.prototype._handleMousewheel = function(e) {
+  if (viewModel.get('activeContent') === 't-and-c') {
+    return true;
+  }
   e.preventDefault();
   if (e.originalEvent.deltaY < 0) {
     this._throttledPrev();

@@ -14,6 +14,7 @@ var viewModel               = require('view-model');
 var View                    = require('../views/content-area-view');
 var ContentSlidesController = require('./content-slides-controller');
 var SpotlightController     = require('./spotlight-controller');
+var TAndCController         = require('./t-and-c-controller');
 var SlideCollection         = require('../collections/content-slide-collection');
 var SlideModel              = require('../models/slide');
 
@@ -30,6 +31,7 @@ var ContentAreaController = function(options) {
 
   this.contentSlidesController = new ContentSlidesController();
   this.spotlightController     = new SpotlightController();
+  this.tAndCController         = new TAndCController();
 
   this._bindMethodContexts();
   this._bindEventHandlers();
@@ -51,7 +53,8 @@ ContentAreaController.prototype._bindEventHandlers = function() {
   $.when(content.ready, disposition.ready).then(this._initSlideCollection);
   $.when(
     this.spotlightController.ready,
-    this.contentSlidesController.ready
+    this.contentSlidesController.ready,
+    this.tAndCController.ready
   ).then(this._handleSubViewsReady);
 };
 
@@ -89,9 +92,12 @@ ContentAreaController.prototype._initCollection = function(collection) {
 };
 
 ContentAreaController.prototype._handleSubViewsReady = function() {
-  this.$el.find('.content-area__container').append(
+  this.$el.find('.content-area__slideshow-container-inner').append(
     this.spotlightController.$el,
     this.contentSlidesController.$el
+  );
+  this.$el.find('.content-area__t-and-c-container').append(
+    this.tAndCController.$el
   );
   this.trigger('init');
 };

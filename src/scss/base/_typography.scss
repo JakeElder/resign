@@ -50,3 +50,24 @@ html {
   content: "b";
 }
 
+%long-form-copy {
+  font-family: "Open Sans";
+  font-weight: 300;
+  line-height: 1.35;
+  font-size: 15px;
+
+  h2 {
+    font-size: 24px;
+    font-weight: normal;
+  }
+
+  > *:not(:last-child) {
+    margin-bottom: 18px;
+  }
+
+  a {
+    color: $white;
+    text-decoration: none;
+  }
+}
+

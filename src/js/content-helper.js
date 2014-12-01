@@ -29,7 +29,8 @@ var Collection = require('./collections/content-collection');
 var MARKDOWN_CIDS = [
   'FOOTER_LIST_LEFT',
   'FOOTER_LIST_RIGHT',
-  'OUTRO_COPY'
+  'OUTRO_COPY',
+  'TERMS_AND_CONDITIONS'
 ];
 
 

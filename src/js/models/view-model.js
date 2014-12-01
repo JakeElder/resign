@@ -16,6 +16,7 @@ var ViewModel = function() {
 var proto = ViewModel.prototype;
 $.extend(proto, Backbone.Model.prototype, {
   defaults: {
+    activeContent: 'slideshow',
     activeSlideIdx: 0,
     slideColection: {}
   }

@@ -8,12 +8,35 @@
   overflow: hidden;
 }
 
+.content-area__section-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 200%;
+  transition: transform 500ms;
+}
+
+.content-area__slideshow-container,
+.content-area__t-and-c-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+}
+
+.content-area__t-and-c-container {
+  left: 100%;
+  overflow: auto;
+  padding-bottom: 150px;
+}
+
 @include medium-viewport {
   .content-area {
     top: 100px;
   }
 
-  .content-area__container {
+  .content-area__slideshow-container-inner {
     width: 710px;
     margin: auto;
   }
