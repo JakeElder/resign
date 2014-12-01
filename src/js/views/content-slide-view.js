@@ -4,6 +4,7 @@
 
 var Backbone = require('backbone');
 var $        = require('jquery');
+var marked   = require('marked');
 var _        = require('underscore');
 var fs       = require('fs');
 var template = _.template(
@@ -32,7 +33,9 @@ $.extend(ContentSlideView.prototype, Backbone.View.prototype, {
 //==============================================================================
 
 ContentSlideView.prototype.render = function() {
-  this.$el.html(this.template(this.model.toJSON()));
+  var data = this.model.toJSON();
+  data.content = marked(data.content);
+  this.$el.html(this.template(data));
   return this;
 };
 
