@@ -32,12 +32,16 @@
 .content-area__t-and-c-container {
   left: 100%;
   overflow: auto;
-  padding-bottom: 150px;
+  padding-bottom: 40px;
 }
 
 @include medium-viewport {
   .content-area {
     top: 100px;
+  }
+
+  .content-area__t-and-c-container {
+    padding-bottom: 150px;
   }
 
   .content-area__slideshow-container-inner {

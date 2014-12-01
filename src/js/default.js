@@ -5,12 +5,23 @@
 var _                     = require('underscore');
 var $                     = require('jquery');
 var viewModel             = require('view-model');
+var Hammer                = require('hammerjs');
 
 var HeaderController      = require('./controllers/header-controller');
 var ContentAreaController = require('./controllers/content-area-controller');
 var FooterController      = require('./controllers/footer-controller');
 
 var addWheelListener      = require('./utils/add-wheel-listener');
+
+
+//==============================================================================
+// Setup
+//==============================================================================
+
+var hammer = new Hammer.Manager(window.document.body, {
+  preventDefault: true
+});
+hammer.add(new Hammer.Swipe({ velocity: 0.5 }));
 
 
 //==============================================================================
@@ -69,11 +80,15 @@ App.prototype._bindMethodContexts = function() {
   this.render            = _.bind(this.render, this);
   this.next              = _.bind(this.next, this);
   this._handleMousewheel = _.bind(this._handleMousewheel, this);
+  this._handleSwipeUp    = _.bind(this._handleSwipeUp, this);
+  this._handleSwipeDown  = _.bind(this._handleSwipeDown, this);
 };
 
 App.prototype._bindEventHandlers = function() {
   viewModel.on('change:activeSlideIdx', this._handleActiveSlideIdxChange, this);
   addWheelListener(window, this._handleMousewheel);
+  hammer.on('swipeup', this._handleSwipeUp);
+  hammer.on('swipedown', this._handleSwipeDown);
 };
 
 App.prototype._handleActiveSlideIdxChange = function() {
@@ -81,15 +96,25 @@ App.prototype._handleActiveSlideIdxChange = function() {
 };
 
 App.prototype._handleMousewheel = function(e) {
-  if (viewModel.get('activeContent') === 't-and-c') {
-    return true;
-  }
+  if (viewModel.get('activeContent') === 't-and-c') { return true; }
   e.preventDefault();
   if (e.deltaY < 0) {
     this._throttledPrev();
   } else if (e.deltaY > 0) {
     this._throttledNext();
   }
+};
+
+App.prototype._handleSwipeUp = function(e) {
+  if (viewModel.get('activeContent') === 't-and-c') { return true; }
+  e.preventDefault();
+  this._throttledNext();
+};
+
+App.prototype._handleSwipeDown = function(e) {
+  if (viewModel.get('activeContent') === 't-and-c') { return true; }
+  e.preventDefault();
+  this._throttledPrev();
 };
 
 App.prototype._showHideFooter = function() {
