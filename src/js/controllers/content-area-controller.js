@@ -59,13 +59,8 @@ ContentAreaController.prototype._bindEventHandlers = function() {
 };
 
 ContentAreaController.prototype._initSlideCollection = function() {
-  this.slideCollection = new SlideCollection([], { query: this._getQuery() });
+  this.slideCollection = new SlideCollection();
   this.slideCollection.fetch({ success: this._handleCollectionFetched });
-};
-
-ContentAreaController.prototype._getQuery = function() {
-  return new Parse.Query(SlideModel)
-    .containedIn('cID', disposition.slideComposition);
 };
 
 ContentAreaController.prototype._handleCollectionFetched = function(collection) {
@@ -80,11 +75,9 @@ ContentAreaController.prototype._handleCollectionFetched = function(collection) 
 };
 
 ContentAreaController.prototype._initCollection = function(collection) {
-  // Sort models by order in disposition.slideComposition
-  collection.models.sort(function(a, b) {
-    var aIndex = disposition.slideComposition.indexOf(a.get('cID'));
-    var bIndex = disposition.slideComposition.indexOf(b.get('cID'));
-    return aIndex - bIndex;
+  collection.process({
+    composition: disposition.slideComposition,
+    prefer: disposition.contentType
   });
   collection.add(this._getOutroSlideModel());
   viewModel.set('slideCollection', collection);
