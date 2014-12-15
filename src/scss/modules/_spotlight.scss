@@ -6,7 +6,7 @@
   position: relative;
 
   @include intrinsic-ratio(640, 626) {
-    background-image: url("/images/spotlight.png");
+    background-image: url("images/spotlight.png");
     background-size: contain;
   }
 }
@@ -38,7 +38,7 @@
   &[data-cid="INTRO"] {
     top: 32%;
     @include intrinsic-ratio(203, 265) {
-      background-image: url("/images/content/clock.png");
+      background-image: url("images/content/clock.png");
     }
   }
 
@@ -46,8 +46,7 @@
     top: 37%;
     width: 26%;
     @include intrinsic-ratio(165, 276) {
-
-      background-image: url("/images/content/sim-card.png");
+      background-image: url("images/content/sim-card.png");
     }
   }
 
@@ -55,7 +54,7 @@
     top: 37%;
     width: 38%;
     @include intrinsic-ratio(235, 281) {
-      background-image: url("/images/content/office-365.png");
+      background-image: url("images/content/office-365.png");
     }
   }
 
@@ -63,7 +62,7 @@
     top: 37%;
     width: 42%;
     @include intrinsic-ratio(242, 240) {
-      background-image: url("/images/content/priority.png");
+      background-image: url("images/content/priority.png");
     }
   }
 
@@ -71,7 +70,7 @@
     top: 37%;
     width: 42%;
     @include intrinsic-ratio(252, 225) {
-      background-image: url("/images/content/4g.png");
+      background-image: url("images/content/4g.png");
     }
   }
 
@@ -79,7 +78,7 @@
     top: 37%;
     width: 53%;
     @include intrinsic-ratio(317, 221) {
-      background-image: url("/images/content/o2-guru.png");
+      background-image: url("images/content/o2-guru.png");
     }
   }
 }
